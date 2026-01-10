@@ -7,6 +7,7 @@
 * Generate a network drive mapping configuration from scratch
 * Supports security group filtering (with nested groups)
 * Supports recurring execution on clients
+* **Requires Windows 11** for silent execution using `conhost.exe --headless`
 
 Documentation is available on my [blog](https://tech.nicolonsky.ch/next-level-network-drive-mapping-with-intune/) and in the [wiki](https://github.com/nicolonsky/IntuneDriveMapping/wiki#troubleshooting). The guys from Intune Training did an awesome walkthrough [video](https://youtu.be/hHtXFeuHkC4) explaining the tool and how to modify the PowerShell script for a VPN based event trigger.
 

@@ -264,32 +264,14 @@ if (Test-RunningAsSystem) {
 	$schtaskScript | Out-File -FilePath $scriptPath -Force
 
 	###########################################################################################
-	# Create dummy vbscript to hide PowerShell Window popping up at logon
+	# Create hidden launcher to avoid PowerShell console window flash
+	# Uses conhost.exe --headless (Windows 11)
 	###########################################################################################
 
-	$vbsDummyScript = "
-	Dim shell,fso,file
-
-	Set shell=CreateObject(`"WScript.Shell`")
-	Set fso=CreateObject(`"Scripting.FileSystemObject`")
-
-	strPath=WScript.Arguments.Item(0)
-
-	If fso.FileExists(strPath) Then
-		set file=fso.GetFile(strPath)
-		strCMD=`"powershell -nologo -executionpolicy ByPass -command `" & Chr(34) & `"&{`" &_
-		file.ShortPath & `"}`" & Chr(34)
-		shell.Run strCMD,0
-	End If
-	"
-
-	$scriptSavePathName = "IntuneDriveMapping-VBSHelper.vbs"
-
-	$dummyScriptPath = $(Join-Path -Path $scriptSavePath -ChildPath $scriptSavePathName)
-
-	$vbsDummyScript | Out-File -FilePath $dummyScriptPath -Force
-
-	$wscriptPath = Join-Path $env:SystemRoot -ChildPath "System32\wscript.exe"
+	$conhostPath = Join-Path $env:SystemRoot -ChildPath "System32\conhost.exe"
+	$powershellPath = Join-Path $env:SystemRoot -ChildPath "System32\WindowsPowerShell\v1.0\powershell.exe"
+	
+	Write-Output "Using conhost.exe --headless for silent execution"
 
 	###########################################################################################
 	# Register a scheduled task to run for all users and execute the script on logon
@@ -301,9 +283,9 @@ if (Test-RunningAsSystem) {
 	$trigger = New-ScheduledTaskTrigger -AtLogOn
 	#Execute task in users context
 	$principal = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -Id "Author"
-	#call the vbscript helper and pass the PosH script as argument
-	$action = New-ScheduledTaskAction -Execute $wscriptPath -Argument "`"$dummyScriptPath`" `"$scriptPath`""
-	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+	#Use conhost.exe --headless to avoid console popup (requires Windows 11)
+	$action = New-ScheduledTaskAction -Execute $conhostPath -Argument "--headless `"$powershellPath`" -NoLogo -ExecutionPolicy ByPass -File `"$scriptPath`""
+	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -Hidden
 
 	$null = Register-ScheduledTask -TaskName $schtaskName -Trigger $trigger -Action $action  -Principal $principal -Settings $settings -Description $schtaskDescription -Force
 
