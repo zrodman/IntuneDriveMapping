@@ -224,53 +224,13 @@ if (Test-RunningAsSystem) {
 
 	###########################################################################################
 	# Create hidden launcher to avoid PowerShell console window flash
-	# Uses conhost.exe --headless on modern Windows (10 22H2+/11+) or VBS wrapper as fallback
+	# Uses conhost.exe --headless (Windows 11)
 	###########################################################################################
 
 	$conhostPath = Join-Path $env:SystemRoot -ChildPath "System32\conhost.exe"
 	$powershellPath = Join-Path $env:SystemRoot -ChildPath "System32\WindowsPowerShell\v1.0\powershell.exe"
 	
-	# Test if conhost.exe supports --headless (Windows 10 22H2+ / Windows 11+)
-	$useConhost = $false
-	try {
-		$conhostVersion = (Get-Item $conhostPath -ErrorAction Stop).VersionInfo.FileVersion
-		# Check if Windows version supports --headless (Windows 10 Build 19045+ or Windows 11)
-		$windowsBuild = [System.Environment]::OSVersion.Version.Build
-		if ($windowsBuild -ge 19045) {
-			$useConhost = $true
-			Write-Output "Using conhost.exe --headless for silent execution (Windows Build: $windowsBuild)"
-		}
-	}
-	catch {
-		Write-Output "conhost.exe not available or version check failed, will use VBScript wrapper"
-	}
-
-	if ($useConhost) {
-		# Modern approach: Use conhost.exe --headless (no console window at all)
-		$launcherPath = $scriptPath
-		$executeCommand = $conhostPath
-		$executeArguments = "--headless `"$powershellPath`" -NoLogo -ExecutionPolicy ByPass -File `"$scriptPath`""
-	}
-	else {
-		# Fallback: Use VBScript wrapper for older Windows versions
-		$vbsScript = @"
-Dim shell,fso,file
-Set shell=CreateObject("WScript.Shell")
-Set fso=CreateObject("Scripting.FileSystemObject")
-strPath=WScript.Arguments.Item(0)
-If fso.FileExists(strPath) Then
-	set file=fso.GetFile(strPath)
-	strCMD="powershell -nologo -executionpolicy ByPass -command " & Chr(34) & "&{" & file.ShortPath & "}" & Chr(34)
-	shell.Run strCMD,0
-End If
-"@
-		$vbsScriptPath = Join-Path $scriptSavePath -ChildPath "IntuneDriveMapping-VBSHelper.vbs"
-		$vbsScript | Out-File -FilePath $vbsScriptPath -Force
-		
-		$executeCommand = Join-Path $env:SystemRoot -ChildPath "System32\wscript.exe"
-		$executeArguments = "`"$vbsScriptPath`" `"$scriptPath`""
-		Write-Output "Using VBScript wrapper for silent execution (legacy Windows)"
-	}
+	Write-Output "Using conhost.exe --headless for silent execution"
 
 	###########################################################################################
 	# Register a scheduled task to run for all users and execute the script on logon
@@ -282,8 +242,8 @@ End If
 	$trigger = New-ScheduledTaskTrigger -AtLogOn
 	#Execute task in users context
 	$principal = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -Id "Author"
-	#Use hidden launcher (conhost --headless or VBScript wrapper) to avoid console popup
-	$action = New-ScheduledTaskAction -Execute $executeCommand -Argument $executeArguments
+	#Use conhost.exe --headless to avoid console popup (requires Windows 11)
+	$action = New-ScheduledTaskAction -Execute $conhostPath -Argument "--headless `"$powershellPath`" -NoLogo -ExecutionPolicy ByPass -File `"$scriptPath`""
 	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -Hidden
 
 	$null = Register-ScheduledTask -TaskName $schtaskName -Trigger $trigger -Action $action  -Principal $principal -Settings $settings -Description $schtaskDescription -Force
