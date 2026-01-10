@@ -235,7 +235,7 @@ if (Test-RunningAsSystem) {
 	#call PowerShell with hidden window to avoid console popup
 	$powershellPath = Join-Path $env:SystemRoot -ChildPath "System32\WindowsPowerShell\v1.0\powershell.exe"
 	$action = New-ScheduledTaskAction -Execute $powershellPath -Argument "-WindowStyle Hidden -NoLogo -ExecutionPolicy ByPass -File `"$scriptPath`""
-	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+	$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -Hidden
 
 	$null = Register-ScheduledTask -TaskName $schtaskName -Trigger $trigger -Action $action  -Principal $principal -Settings $settings -Description $schtaskDescription -Force
 
