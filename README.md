@@ -1,6 +1,8 @@
-# Intune network drive mapping generator
+# Intune Drive Mapping Generator
 
-> **Note:** This is a fork of [nicolonsky's IntuneDriveMapping](https://github.com/nicolonsky/IntuneDriveMapping) project. This fork focuses on providing VBScript alternatives for network drive mapping in modern Intune environments. Credit to the original author for the foundational work.
+A customized web application for generating Intune PowerShell scripts to map network drives on Entra ID joined devices. This version has been updated with a modern dark theme and is designed to run on Azure.
+
+## Features
 
 * Generate Intune PowerShell scripts to map network drives on Entra ID joined devices
 * Seamlessly migrate existing network drive mapping group policies
@@ -8,7 +10,27 @@
 * Supports security group filtering (with nested groups)
 * Supports recurring execution on clients
 * **Requires Windows 11** for silent execution using `conhost.exe --headless`
+* Modern dark theme UI
+* Custom branding and Azure deployment ready
 
-For additional context and troubleshooting, refer to the [original project's wiki](https://github.com/nicolonsky/IntuneDriveMapping/wiki#troubleshooting) and [blog post](https://tech.nicolonsky.ch/next-level-network-drive-mapping-with-intune/) by nicolonsky.
+## Usage
 
-![image](https://user-images.githubusercontent.com/32899754/88693062-21c4b980-d0ff-11ea-8e5e-adbc655fe0e6.png)
+1. (Optional) Export your existing group policy configuration which contains the network drive configuration to an XML file
+2. Upload the configuration or generate a new one from scratch in the generator
+3. Download your generated PowerShell script
+4. Deploy the PowerShell script with Microsoft Intune
+
+## Deployment
+
+This application is configured to run on Azure and has been customized for personal use with:
+- Dark theme implementation
+- Removed external dependencies
+- Custom branding
+- Optimized for Azure hosting
+
+## Technology Stack
+
+- ASP.NET Core
+- Bootstrap 4 with custom dark theme
+- JavaScript/jQuery
+- Designed for Azure App Service deployment
