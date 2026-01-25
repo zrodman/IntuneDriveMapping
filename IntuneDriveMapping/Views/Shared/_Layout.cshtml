@@ -11,8 +11,8 @@
     <script src="~/vendor.min.js"></script>
     <script src="~/js/site.min.js"></script>
 </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-5">
+    <body class="bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #212529;">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
                     </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
-                            <a href="https://github.com/nicolonsky/IntuneDriveMapping/wiki" target="_blank" class="nav-link" rel="noreferrer">
+                            <a href="https://github.com/zrodman/IntuneDriveMapping#readme" target="_blank" class="nav-link" rel="noreferrer">
                                 <i class="fas fa-book"></i>
                                 <span>Documentation</span>
                             </a>
@@ -41,10 +41,10 @@
         <main role="main" class="container pt-5 pb-5">
             @RenderBody()
         </main>
-        <footer class="footer fixed-bottom py-2" style="background-color:#f5f5f5">
+        <footer class="footer fixed-bottom py-2" style="background-color:#212529; color: #fff;">
             <div class="container">
                 <span class="">Version: <span class="badge badge-secondary">@typeof(IntuneDriveMapping.Program).Assembly.GetName().Version</span></span>
-                <span class="float-right">Presented by <a href="https://tech.nicolonsky.ch/" rel="noreferrer" target="_blank">Nicola Suter</a></span>
+                <span class="float-right">Custom Build</span>
             </div>
         </footer>
     </body>

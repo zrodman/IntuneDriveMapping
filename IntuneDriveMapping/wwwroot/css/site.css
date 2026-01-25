@@ -1,13 +1,140 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 
-#button.btn.btn-link.nopadding {
-    padding: 0px;
-}
-
+/* Dark Theme Implementation */
 body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
     padding-top: 50px;
     padding-bottom: 20px;
+}
+
+/* Dark theme for cards and containers */
+.jumbotron {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+}
+
+/* Dark theme for modals */
+.modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #404040;
+}
+
+.modal-header {
+    border-bottom: 1px solid #404040;
+}
+
+.modal-footer {
+    border-top: 1px solid #404040;
+}
+
+/* Dark theme for forms and inputs */
+.form-control {
+    background-color: #3d3d3d;
+    border: 1px solid #555;
+    color: #e0e0e0;
+}
+
+.form-control:focus {
+    background-color: #3d3d3d;
+    border-color: #007bff;
+    color: #e0e0e0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+/* Dark theme for input groups */
+.input-group-text {
+    background-color: #404040;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+/* Dark theme for tables */
+.table {
+    color: #e0e0e0;
+}
+
+.table-dark {
+    background-color: #2d2d2d;
+}
+
+.table-dark th,
+.table-dark td {
+    border-color: #404040;
+}
+
+/* Dark theme for buttons */
+.btn-secondary {
+    background-color: #404040;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+    border-color: #555;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+/* Dark theme for alerts */
+.alert-info {
+    background-color: #1f4e79;
+    border-color: #2e5984;
+    color: #b8d4f0;
+}
+
+.alert-warning {
+    background-color: #7a5c00;
+    border-color: #8a6600;
+    color: #f0e6b8;
+}
+
+.alert-danger {
+    background-color: #7a1f1f;
+    border-color: #8a2e2e;
+    color: #f0b8b8;
+}
+
+/* Dark theme for badges */
+.badge-secondary {
+    background-color: #555;
+    color: #e0e0e0;
+}
+
+/* Dark theme for form checks */
+.form-check-label {
+    color: #e0e0e0;
+}
+
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+#button.btn.btn-link.nopadding {
+    padding: 0px;
+    color: #007bff;
+}
+
+#button.btn.btn-link.nopadding:hover {
+    color: #0056b3;
 }
 
 /* Wrapping element */
