@@ -203,7 +203,7 @@ The generated PowerShell scripts can be modified to:
 ## Technology Stack
 
 **Web Application:**
-- ASP.NET Core 6.0
+- ASP.NET Core 8.0 LTS
 - Bootstrap 4 with custom dark theme
 - Azure App Service hosting
 - GitHub Actions CI/CD

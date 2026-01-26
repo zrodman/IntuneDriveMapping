@@ -57,7 +57,7 @@ The Intune Drive Mapping Generator is a web-based tool built on ASP.NET Core MVC
 
 ### Azure App Service
 - Platform: Linux containers
-- Runtime: .NET 6.0
+- Runtime: .NET 8.0 LTS
 - Scaling: Manual/automatic based on demand
 - Monitoring: Application Insights integration
 
