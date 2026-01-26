@@ -9,6 +9,15 @@ body {
     padding-bottom: 20px;
 }
 
+/* Ensure all text elements are light colored */
+h1, h2, h3, h4, h5, h6 {
+    color: #e0e0e0;
+}
+
+p, span, div, label {
+    color: #e0e0e0;
+}
+
 /* Dark theme for cards and containers */
 .jumbotron {
     background-color: #2d2d2d;
@@ -29,6 +38,10 @@ body {
 
 .modal-footer {
     border-top: 1px solid #404040;
+}
+
+.modal-body {
+    color: #e0e0e0;
 }
 
 /* Dark theme for forms and inputs */
@@ -59,6 +72,24 @@ body {
 /* Dark theme for tables */
 .table {
     color: #e0e0e0;
+    background-color: transparent;
+}
+
+.table th {
+    color: #e0e0e0;
+    background-color: #2d2d2d;
+    border-color: #404040;
+}
+
+.table td {
+    color: #e0e0e0;
+    border-color: #404040;
+}
+
+.table thead th {
+    color: #e0e0e0;
+    background-color: #2d2d2d;
+    border-color: #404040;
 }
 
 .table-dark {
@@ -68,6 +99,7 @@ body {
 .table-dark th,
 .table-dark td {
     border-color: #404040;
+    color: #e0e0e0;
 }
 
 /* Dark theme for buttons */
@@ -80,6 +112,7 @@ body {
 .btn-secondary:hover {
     background-color: #555;
     border-color: #555;
+    color: #e0e0e0;
 }
 
 .btn-outline-primary {
@@ -91,6 +124,14 @@ body {
     background-color: #007bff;
     border-color: #007bff;
     color: #fff;
+}
+
+.btn-link {
+    color: #007bff;
+}
+
+.btn-link:hover {
+    color: #0056b3;
 }
 
 /* Dark theme for alerts */
@@ -112,6 +153,12 @@ body {
     color: #f0b8b8;
 }
 
+.alert-success {
+    background-color: #1f5a1f;
+    border-color: #2e6b2e;
+    color: #b8f0b8;
+}
+
 /* Dark theme for badges */
 .badge-secondary {
     background-color: #555;
@@ -126,6 +173,26 @@ body {
 .form-check-input:checked {
     background-color: #007bff;
     border-color: #007bff;
+}
+
+/* Dark theme for close buttons */
+.close {
+    color: #e0e0e0;
+    opacity: 0.8;
+}
+
+.close:hover {
+    color: #e0e0e0;
+    opacity: 1;
+}
+
+/* Dark theme for text elements */
+.text-muted {
+    color: #aaa !important;
+}
+
+.text-dark {
+    color: #e0e0e0 !important;
 }
 
 #button.btn.btn-link.nopadding {
