@@ -9,12 +9,30 @@ body {
     padding-bottom: 20px;
 }
 
-/* Ensure all text elements are light colored */
+/* Ensure all text elements are light colored - with higher specificity */
 h1, h2, h3, h4, h5, h6 {
-    color: #e0e0e0;
+    color: #e0e0e0 !important;
 }
 
-p, span, div, label {
+p, span, div, label, strong {
+    color: #e0e0e0 !important;
+}
+
+/* Specific styling for monospace headings */
+h4[style*="monospace"] {
+    color: #e0e0e0 !important;
+    font-family: monospace !important;
+}
+
+/* Form elements text */
+.form-group label,
+.form-check-label,
+.input-group-text {
+    color: #e0e0e0 !important;
+}
+
+/* Container and main content areas */
+.container, .container-fluid, main {
     color: #e0e0e0;
 }
 
@@ -66,8 +84,57 @@ p, span, div, label {
 .input-group-text {
     background-color: #404040;
     border-color: #555;
+    color: #e0e0e0 !important;
+}
+
+.input-group-btn .btn {
     color: #e0e0e0;
 }
+
+/* Ensure all Bootstrap text utilities work with dark theme */
+.text-primary { color: #007bff !important; }
+.text-secondary { color: #6c757d !important; }
+.text-success { color: #28a745 !important; }
+.text-danger { color: #dc3545 !important; }
+.text-warning { color: #ffc107 !important; }
+.text-info { color: #17a2b8 !important; }
+.text-light { color: #f8f9fa !important; }
+.text-dark { color: #e0e0e0 !important; }
+.text-white { color: #fff !important; }
+
+/* Override any remaining dark text with maximum specificity */
+body, body *, 
+.container, .container *,
+.form-group, .form-group *,
+h1, h2, h3, h4, h5, h6,
+p, span, div, label, strong, em, i, b,
+.text-dark, .text-secondary {
+    color: #e0e0e0 !important;
+}
+
+/* Specific overrides for form elements */
+.form-control, .form-control:focus, .form-control:disabled {
+    color: #e0e0e0 !important;
+    background-color: #3d3d3d !important;
+}
+
+/* Bootstrap utility overrides */
+.text-muted, .small, .form-text {
+    color: #aaa !important;
+}
+
+/* Ensure buttons maintain their intended colors */
+.btn-primary { color: #fff !important; }
+.btn-secondary { color: #e0e0e0 !important; }
+.btn-success { color: #fff !important; }
+.btn-danger { color: #fff !important; }
+.btn-warning { color: #212529 !important; }
+.btn-info { color: #fff !important; }
+.btn-light { color: #212529 !important; }
+.btn-dark { color: #fff !important; }
+.btn-outline-primary { color: #007bff !important; }
+.btn-outline-secondary { color: #6c757d !important; }
+.btn-link { color: #007bff !important; }
 
 /* Dark theme for tables */
 .table {
