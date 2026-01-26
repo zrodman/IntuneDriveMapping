@@ -1,303 +1,406 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 
-/* Dark Theme Implementation */
-body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    padding-top: 50px;
-    padding-bottom: 20px;
+/* CSS Custom Properties for Dark Mode */
+:root {
+  /* Light mode colors (default) */
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  
+  /* Backgrounds */
+  --bg-body: #ffffff;
+  --bg-surface: #f8f9fa;
+  --bg-elevated: #ffffff;
+  --bg-input: #ffffff;
+  
+  /* Text colors */
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #6c757d;
+  --text-inverse: #ffffff;
+  
+  /* Borders */
+  --border-color: #dee2e6;
+  --border-input: #ced4da;
+  
+  /* Shadows */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* Ensure all text elements are light colored - with higher specificity */
+/* Dark mode color overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Adjusted colors for dark mode */
+    --color-primary: #4d94ff;
+    --color-secondary: #adb5bd;
+    --color-success: #40d865;
+    --color-danger: #ff6b6b;
+    --color-warning: #ffd93d;
+    --color-info: #4ecdc4;
+    
+    /* Dark backgrounds */
+    --bg-body: #121212;
+    --bg-surface: #1e1e1e;
+    --bg-elevated: #2d2d2d;
+    --bg-input: #3d3d3d;
+    
+    /* Light text for dark backgrounds */
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #888888;
+    --text-inverse: #121212;
+    
+    /* Lighter borders for dark mode */
+    --border-color: #404040;
+    --border-input: #555555;
+    
+    /* Softer shadows for dark mode */
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Manual dark mode override using data attribute */
+[data-theme="dark"] {
+  /* Same dark mode variables as media query */
+  --color-primary: #4d94ff;
+  --color-secondary: #adb5bd;
+  --color-success: #40d865;
+  --color-danger: #ff6b6b;
+  --color-warning: #ffd93d;
+  --color-info: #4ecdc4;
+  
+  --bg-body: #121212;
+  --bg-surface: #1e1e1e;
+  --bg-elevated: #2d2d2d;
+  --bg-input: #3d3d3d;
+  
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #888888;
+  --text-inverse: #121212;
+  
+  --border-color: #404040;
+  --border-input: #555555;
+  
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+/* Force light mode */
+[data-theme="light"] {
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  
+  --bg-body: #ffffff;
+  --bg-surface: #f8f9fa;
+  --bg-elevated: #ffffff;
+  --bg-input: #ffffff;
+  
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #6c757d;
+  --text-inverse: #ffffff;
+  
+  --border-color: #dee2e6;
+  --border-input: #ced4da;
+  
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Apply CSS variables to elements */
+body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  padding-top: 50px;
+  padding-bottom: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
-    color: #e0e0e0 !important;
+  color: var(--text-primary);
 }
 
 p, span, div, label, strong {
-    color: #e0e0e0 !important;
+  color: var(--text-primary);
 }
 
-/* Specific styling for monospace headings */
-h4[style*="monospace"] {
-    color: #e0e0e0 !important;
-    font-family: monospace !important;
-}
-
-/* Form elements text */
-.form-group label,
-.form-check-label,
-.input-group-text {
-    color: #e0e0e0 !important;
-}
-
-/* Container and main content areas */
-.container, .container-fluid, main {
-    color: #e0e0e0;
-}
-
-/* Dark theme for cards and containers */
+/* Cards and containers */
 .jumbotron {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    border: 1px solid #404040;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Dark theme for modals */
+/* Modals */
 .modal-content {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    border: 1px solid #404040;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .modal-header {
-    border-bottom: 1px solid #404040;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modal-footer {
-    border-top: 1px solid #404040;
+  border-top: 1px solid var(--border-color);
 }
 
 .modal-body {
-    color: #e0e0e0;
+  color: var(--text-primary);
 }
 
-/* Dark theme for forms and inputs */
+/* Forms and inputs */
 .form-control {
-    background-color: #3d3d3d;
-    border: 1px solid #555;
-    color: #e0e0e0;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-input);
+  color: var(--text-primary);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus {
-    background-color: #3d3d3d;
-    border-color: #007bff;
-    color: #e0e0e0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  background-color: var(--bg-input);
+  border-color: var(--color-primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--color-primary), 0.25);
 }
 
 .form-control::placeholder {
-    color: #aaa;
+  color: var(--text-muted);
 }
 
-/* Dark theme for input groups */
+/* Input groups */
 .input-group-text {
-    background-color: #404040;
-    border-color: #555;
-    color: #e0e0e0 !important;
+  background-color: var(--bg-surface);
+  border-color: var(--border-input);
+  color: var(--text-primary);
 }
 
-.input-group-btn .btn {
-    color: #e0e0e0;
-}
-
-/* Ensure all Bootstrap text utilities work with dark theme */
-.text-primary { color: #007bff !important; }
-.text-secondary { color: #6c757d !important; }
-.text-success { color: #28a745 !important; }
-.text-danger { color: #dc3545 !important; }
-.text-warning { color: #ffc107 !important; }
-.text-info { color: #17a2b8 !important; }
-.text-light { color: #f8f9fa !important; }
-.text-dark { color: #e0e0e0 !important; }
-.text-white { color: #fff !important; }
-
-/* Override any remaining dark text with maximum specificity */
-body, body *, 
-.container, .container *,
-.form-group, .form-group *,
-h1, h2, h3, h4, h5, h6,
-p, span, div, label, strong, em, i, b,
-.text-dark, .text-secondary {
-    color: #e0e0e0 !important;
-}
-
-/* Specific overrides for form elements */
-.form-control, .form-control:focus, .form-control:disabled {
-    color: #e0e0e0 !important;
-    background-color: #3d3d3d !important;
-}
-
-/* Bootstrap utility overrides */
-.text-muted, .small, .form-text {
-    color: #aaa !important;
-}
-
-/* Ensure buttons maintain their intended colors */
-.btn-primary { color: #fff !important; }
-.btn-secondary { color: #e0e0e0 !important; }
-.btn-success { color: #fff !important; }
-.btn-danger { color: #fff !important; }
-.btn-warning { color: #212529 !important; }
-.btn-info { color: #fff !important; }
-.btn-light { color: #212529 !important; }
-.btn-dark { color: #fff !important; }
-.btn-outline-primary { color: #007bff !important; }
-.btn-outline-secondary { color: #6c757d !important; }
-.btn-link { color: #007bff !important; }
-
-/* Dark theme for tables */
+/* Tables */
 .table {
-    color: #e0e0e0;
-    background-color: transparent;
+  color: var(--text-primary);
+  background-color: transparent;
 }
 
 .table th {
-    color: #e0e0e0;
-    background-color: #2d2d2d;
-    border-color: #404040;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
 }
 
 .table td {
-    color: #e0e0e0;
-    border-color: #404040;
+  color: var(--text-primary);
+  border-color: var(--border-color);
 }
 
 .table thead th {
-    color: #e0e0e0;
-    background-color: #2d2d2d;
-    border-color: #404040;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
 }
 
-.table-dark {
-    background-color: #2d2d2d;
+/* Buttons - using CSS variables */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-inverse);
 }
 
-.table-dark th,
-.table-dark td {
-    border-color: #404040;
-    color: #e0e0e0;
+.btn-primary:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  filter: brightness(0.9);
 }
 
-/* Dark theme for buttons */
 .btn-secondary {
-    background-color: #404040;
-    border-color: #404040;
-    color: #e0e0e0;
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--text-inverse);
 }
 
 .btn-secondary:hover {
-    background-color: #555;
-    border-color: #555;
-    color: #e0e0e0;
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  filter: brightness(0.9);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--text-inverse);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--text-inverse);
 }
 
 .btn-outline-primary {
-    color: #007bff;
-    border-color: #007bff;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .btn-outline-primary:hover {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-inverse);
 }
 
 .btn-link {
-    color: #007bff;
+  color: var(--color-primary);
 }
 
 .btn-link:hover {
-    color: #0056b3;
+  color: var(--color-primary);
+  filter: brightness(0.8);
 }
 
-/* Dark theme for alerts */
+/* Alerts */
 .alert-info {
-    background-color: #1f4e79;
-    border-color: #2e5984;
-    color: #b8d4f0;
+  background-color: rgba(var(--color-info), 0.1);
+  border-color: var(--color-info);
+  color: var(--color-info);
 }
 
 .alert-warning {
-    background-color: #7a5c00;
-    border-color: #8a6600;
-    color: #f0e6b8;
+  background-color: rgba(var(--color-warning), 0.1);
+  border-color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .alert-danger {
-    background-color: #7a1f1f;
-    border-color: #8a2e2e;
-    color: #f0b8b8;
+  background-color: rgba(var(--color-danger), 0.1);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 
 .alert-success {
-    background-color: #1f5a1f;
-    border-color: #2e6b2e;
-    color: #b8f0b8;
+  background-color: rgba(var(--color-success), 0.1);
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 
-/* Dark theme for badges */
+/* Badges */
 .badge-secondary {
-    background-color: #555;
-    color: #e0e0e0;
+  background-color: var(--color-secondary);
+  color: var(--text-inverse);
 }
 
-/* Dark theme for form checks */
+/* Form checks */
 .form-check-label {
-    color: #e0e0e0;
+  color: var(--text-primary);
 }
 
 .form-check-input:checked {
-    background-color: #007bff;
-    border-color: #007bff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-/* Dark theme for close buttons */
+/* Close buttons */
 .close {
-    color: #e0e0e0;
-    opacity: 0.8;
+  color: var(--text-primary);
+  opacity: 0.8;
 }
 
 .close:hover {
-    color: #e0e0e0;
-    opacity: 1;
+  color: var(--text-primary);
+  opacity: 1;
 }
 
-/* Dark theme for text elements */
+/* Text utilities */
 .text-muted {
-    color: #aaa !important;
+  color: var(--text-muted) !important;
 }
 
-.text-dark {
-    color: #e0e0e0 !important;
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.text-secondary {
+  color: var(--color-secondary) !important;
+}
+
+.text-success {
+  color: var(--color-success) !important;
+}
+
+.text-danger {
+  color: var(--color-danger) !important;
+}
+
+.text-warning {
+  color: var(--color-warning) !important;
+}
+
+.text-info {
+  color: var(--color-info) !important;
+}
+
+/* Images - reduce brightness in dark mode */
+@media (prefers-color-scheme: dark) {
+  img {
+    filter: brightness(0.8) contrast(1.1);
+  }
+}
+
+[data-theme="dark"] img {
+  filter: brightness(0.8) contrast(1.1);
+}
+
+/* Inform browser about color scheme support */
+:root {
+  color-scheme: light dark;
 }
 
 #button.btn.btn-link.nopadding {
-    padding: 0px;
-    color: #007bff;
+  padding: 0px;
+  color: var(--color-primary);
 }
 
 #button.btn.btn-link.nopadding:hover {
-    color: #0056b3;
+  color: var(--color-primary);
+  filter: brightness(0.8);
 }
 
 /* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* Carousel */
 .carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+  font-size: 20px;
+  line-height: 1.4;
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+  width: 100%;
 }
 
 /* QR code generator */
 #qrCode {
-    margin: 15px;
+  margin: 15px;
 }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+  .carousel-caption {
+    display: none;
+  }
 }
